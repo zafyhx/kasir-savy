@@ -1,26 +1,87 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Palet krem hangat — brand Kasir Savy */
+  --color-cream: #f7f1e4;
+  --color-cream-soft: #fffdf8;
+  --color-navy: #1f4271;
+  --color-navy-dark: #163256;
+  --color-blue: #3476a3;
+  --color-tan: #baa87e;
+  --color-tan-soft: #ede3ce;
+  --color-ink: #2b2620;
+  --color-ink-soft: #756c5e;
+  --color-border: #e6dcc8;
+
+  --background: var(--color-cream);
+  --foreground: var(--color-ink);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-cream: var(--color-cream);
+  --color-cream-soft: var(--color-cream-soft);
+  --color-navy: var(--color-navy);
+  --color-navy-dark: var(--color-navy-dark);
+  --color-blue: var(--color-blue);
+  --color-tan: var(--color-tan);
+  --color-tan-soft: var(--color-tan-soft);
+  --color-ink: var(--color-ink);
+  --color-ink-soft: var(--color-ink-soft);
+  --color-border: var(--color-border);
+  --font-sans: var(--font-nunito);
+
+  /* Bayangan lembut untuk kartu & elemen mengambang */
+  --shadow-card: 0 1px 2px rgba(43, 38, 32, 0.06), 0 4px 14px rgba(43, 38, 32, 0.06);
+  --shadow-float: 0 -2px 12px rgba(43, 38, 32, 0.08);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* Tema krem tunggal dan konsisten — sengaja tidak mengikuti dark mode
+   sistem, supaya kontras & tampilan tetap familiar untuk pengguna lansia. */
+body {
+  background: radial-gradient(1100px 520px at 50% -8%, var(--color-cream-soft) 0%, var(--color-cream) 60%)
+    fixed;
+  color: var(--foreground);
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Sembunyikan panah kecil input angka — mengetik langsung lebih mudah untuk
+   pengguna lansia, dan tampilan jadi lebih bersih. */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type="number"] {
+  appearance: textfield;
+  -moz-appearance: textfield;
+}
+
+/* Animasi halus saat layar/kartu muncul */
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
   }
 }
+.animate-fade-up {
+  animation: fade-up 0.28s ease-out both;
+}
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@keyframes pulse-soft {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.55;
+  }
+}
+.animate-pulse-soft {
+  animation: pulse-soft 1.6s ease-in-out infinite;
 }
