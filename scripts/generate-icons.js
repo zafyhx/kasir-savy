@@ -34,7 +34,7 @@ async function main() {
   // tanpa kartu/grid krem di belakangnya — beda dari ikon PWA di bawah.
   {
     const size = 180;
-    const logoSize = Math.round(size * 0.9);
+    const logoSize = size;
     const logoBuf = await sharp(logogramOutline)
       .resize(logoSize, logoSize, { fit: "contain", background: { r: 0, g: 0, b: 0, alpha: 0 } })
       .toBuffer();
@@ -48,7 +48,7 @@ async function main() {
 
   {
     const size = 256;
-    const logoSize = Math.round(size * 0.9);
+    const logoSize = size;
     const logoBuf = await sharp(logogramOutline)
       .resize(logoSize, logoSize, { fit: "contain", background: { r: 0, g: 0, b: 0, alpha: 0 } })
       .toBuffer();
