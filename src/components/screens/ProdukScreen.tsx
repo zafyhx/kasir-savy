@@ -173,117 +173,113 @@ export default function ProdukScreen({ storeId }: ProdukScreenProps) {
         ))}
       </ul>
       {showForm && (
-        <div className="fixed inset-0 z-30 flex flex-col bg-cream-soft">
-          {/* Header */}
-          <div className="shrink-0 flex items-center justify-between border-b border-border px-4 py-4">
-            <h2 className="text-lg font-semibold text-ink">
-              {editingId ? "Edit Produk" : "Tambah Produk"}
-            </h2>
-            <button
-              type="button"
-              onClick={() => setShowForm(false)}
-              aria-label="Tutup"
-              className="flex h-9 w-9 items-center justify-center rounded-xl text-ink-soft transition-colors hover:bg-tan-soft"
-            >
-              ✕
-            </button>
-          </div>
-
+        <div className="fixed inset-0 z-50 overflow-y-auto bg-cream-soft">
           <form
             onSubmit={handleSubmit}
-            className="flex flex-1 flex-col min-h-0"
+            className="flex min-h-[100dvh] flex-col"
           >
-            {/* Scrollable body */}
-            <div className="flex-1 overflow-y-auto">
-              <div className="mx-auto flex w-full max-w-lg flex-col gap-4 p-5">
-                <div>
-                  <label className="text-sm font-medium text-ink-soft">Nama Produk</label>
-                  <input
-                    className={inputClass}
-                    value={form.name}
-                    maxLength={100}
-                    onChange={(e) => setForm({ ...form, name: e.target.value })}
-                  />
-                </div>
-                <div className="grid grid-cols-2 gap-3">
-                  <div>
-                    <label className="text-sm font-medium text-ink-soft">Harga Jual</label>
-                    <input
-                      type="number"
-                      min={0}
-                      className={inputClass}
-                      value={form.price}
-                      onChange={(e) => setForm({ ...form, price: Number(e.target.value) })}
-                    />
-                  </div>
-                  <div>
-                    <label className="text-sm font-medium text-ink-soft">Harga Modal</label>
-                    <input
-                      type="number"
-                      min={0}
-                      className={inputClass}
-                      value={form.cost_price}
-                      onChange={(e) => setForm({ ...form, cost_price: Number(e.target.value) })}
-                    />
-                  </div>
-                </div>
-                <p
-                  className={`rounded-xl px-3 py-2 text-xs font-semibold ${
-                    margin < 0 ? "bg-red-50 text-red-700" : "bg-tan-soft text-navy"
-                  }`}
-                >
-                  Untung per {form.unit || "item"}: {formatRupiah(margin)} ({marginPct}%)
-                  {margin < 0 && <span className="ml-1"> — harga jual di bawah modal!</span>}
-                </p>
-                <div className="grid grid-cols-3 gap-3">
-                  <div>
-                    <label className="text-sm font-medium text-ink-soft">Stok</label>
-                    <input
-                      type="number"
-                      min={0}
-                      className={inputClass}
-                      value={form.stock}
-                      onChange={(e) => setForm({ ...form, stock: Number(e.target.value) })}
-                    />
-                  </div>
-                  <div>
-                    <label className="text-sm font-medium text-ink-soft">Stok Min.</label>
-                    <input
-                      type="number"
-                      min={0}
-                      className={inputClass}
-                      value={form.min_stock}
-                      onChange={(e) => setForm({ ...form, min_stock: Number(e.target.value) })}
-                    />
-                  </div>
-                  <div>
-                    <label className="text-sm font-medium text-ink-soft">Satuan</label>
-                    <input
-                      className={inputClass}
-                      value={form.unit}
-                      maxLength={20}
-                      onChange={(e) => setForm({ ...form, unit: e.target.value })}
-                    />
-                  </div>
-                </div>
-
-                {error && <p className="text-sm font-medium text-red-600">{error}</p>}
-              </div>
+            {/* Header */}
+            <div className="sticky top-0 z-10 flex items-center justify-between border-b border-border bg-cream-soft px-4 py-3">
+              <h2 className="text-lg font-semibold text-ink">
+                {editingId ? "Edit Produk" : "Tambah Produk"}
+              </h2>
+              <button
+                type="button"
+                onClick={() => setShowForm(false)}
+                aria-label="Tutup"
+                className="flex h-9 w-9 items-center justify-center rounded-xl text-ink-soft active:bg-tan-soft"
+              >
+                ✕
+              </button>
             </div>
 
-            {/* Bottom buttons — always visible */}
-            <div className="shrink-0 border-t border-border bg-cream-soft px-5 py-4">
-              <div className="mx-auto flex max-w-lg gap-2">
+            {/* Form fields */}
+            <div className="flex flex-col gap-3 px-4 py-4">
+              <div>
+                <label className="text-sm font-medium text-ink-soft">Nama Produk</label>
+                <input
+                  className={inputClass}
+                  value={form.name}
+                  maxLength={100}
+                  onChange={(e) => setForm({ ...form, name: e.target.value })}
+                />
+              </div>
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className="text-sm font-medium text-ink-soft">Harga Jual</label>
+                  <input
+                    type="number"
+                    min={0}
+                    className={inputClass}
+                    value={form.price}
+                    onChange={(e) => setForm({ ...form, price: Number(e.target.value) })}
+                  />
+                </div>
+                <div>
+                  <label className="text-sm font-medium text-ink-soft">Harga Modal</label>
+                  <input
+                    type="number"
+                    min={0}
+                    className={inputClass}
+                    value={form.cost_price}
+                    onChange={(e) => setForm({ ...form, cost_price: Number(e.target.value) })}
+                  />
+                </div>
+              </div>
+              <p
+                className={`rounded-xl px-3 py-2 text-xs font-semibold ${
+                  margin < 0 ? "bg-red-50 text-red-700" : "bg-tan-soft text-navy"
+                }`}
+              >
+                Untung per {form.unit || "item"}: {formatRupiah(margin)} ({marginPct}%)
+                {margin < 0 && <span className="ml-1"> — harga jual di bawah modal!</span>}
+              </p>
+              <div className="grid grid-cols-3 gap-3">
+                <div>
+                  <label className="text-sm font-medium text-ink-soft">Stok</label>
+                  <input
+                    type="number"
+                    min={0}
+                    className={inputClass}
+                    value={form.stock}
+                    onChange={(e) => setForm({ ...form, stock: Number(e.target.value) })}
+                  />
+                </div>
+                <div>
+                  <label className="text-sm font-medium text-ink-soft">Stok Min.</label>
+                  <input
+                    type="number"
+                    min={0}
+                    className={inputClass}
+                    value={form.min_stock}
+                    onChange={(e) => setForm({ ...form, min_stock: Number(e.target.value) })}
+                  />
+                </div>
+                <div>
+                  <label className="text-sm font-medium text-ink-soft">Satuan</label>
+                  <input
+                    className={inputClass}
+                    value={form.unit}
+                    maxLength={20}
+                    onChange={(e) => setForm({ ...form, unit: e.target.value })}
+                  />
+                </div>
+              </div>
+
+              {error && <p className="text-sm font-medium text-red-600">{error}</p>}
+
+              {/* Buttons — right below form fields */}
+              <div className="flex gap-2 pt-2">
                 <button
                   type="button"
                   onClick={() => setShowForm(false)}
-                  className="flex-1 rounded-2xl bg-tan-soft py-3.5 font-semibold text-navy transition-transform duration-75 active:scale-[0.98]"
+                  className="flex-1 rounded-2xl bg-tan-soft py-3 font-semibold text-navy active:scale-[0.98]"
                 >
                   Batal
                 </button>
                 <button
                   type="submit"
-                  className="flex-1 rounded-2xl bg-navy py-3.5 font-bold text-cream-soft shadow-card transition-colors active:bg-navy-dark"
+                  className="flex-1 rounded-2xl bg-navy py-3 font-bold text-cream-soft shadow-card active:bg-navy-dark"
                 >
                   Simpan
                 </button>
