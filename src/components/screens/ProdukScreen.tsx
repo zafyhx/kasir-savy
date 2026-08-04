@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { createPortal } from "react-dom";
 import { useLiveQuery } from "dexie-react-hooks";
 import { Search, Plus, Pencil, Trash2, PackageOpen } from "lucide-react";
 import {
@@ -172,11 +173,11 @@ export default function ProdukScreen({ storeId }: ProdukScreenProps) {
           </li>
         ))}
       </ul>
-      {showForm && (
+      {showForm && createPortal(
         <div className="fixed inset-0 z-50 overflow-y-auto bg-cream-soft">
           <form
             onSubmit={handleSubmit}
-            className="flex min-h-[100dvh] flex-col"
+            className="flex flex-col"
           >
             {/* Header */}
             <div className="sticky top-0 z-10 flex items-center justify-between border-b border-border bg-cream-soft px-4 py-3">
@@ -286,7 +287,8 @@ export default function ProdukScreen({ storeId }: ProdukScreenProps) {
               </div>
             </div>
           </form>
-        </div>
+        </div>,
+        document.body
       )}
     </div>
   );
